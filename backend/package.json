@@ -13,7 +13,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage"
   },
   "lint-staged": {
     "*.ts": [
