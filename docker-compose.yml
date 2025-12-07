@@ -24,6 +24,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
       target: development
+    image: api
     container_name: api
     restart: unless-stopped
     environment:
@@ -52,6 +53,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       target: development
+    image: client
     container_name: client
     restart: unless-stopped
     environment:
