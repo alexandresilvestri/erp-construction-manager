@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 
 function App() {
-  const [apiStatus, setApiStatus] = useState<string>("Checking...")
+  const [apiStatus, setApiStatus] = useState<string>('Checking...')
 
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000"
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
     fetch(`${apiUrl}/health`)
       .then((res) => res.json())
@@ -12,7 +12,7 @@ function App() {
         setApiStatus(`Connected - ${data.status}`)
       })
       .catch(() => {
-        setApiStatus("Disconnected")
+        setApiStatus('Disconnected')
       })
   }, [])
 
