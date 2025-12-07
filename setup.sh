@@ -53,7 +53,6 @@ fi
 # 4. Estructure folders
 mkdir -p backend/src/database/{migrations,seeds}
 mkdir -p frontend/src
-mkdir -p init-scripts
 
 # 5. Verify available ports
 check_port() {
