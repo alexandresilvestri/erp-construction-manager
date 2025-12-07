@@ -7,7 +7,7 @@
 # =============================================================================
 
 # .PHONY tells make these aren't actual files, just command names
-.PHONY: help dev up down restart logs ps clean install test
+.PHONY: help dev up down restart logs ps clean install test lint format
 
 # Default target - runs when you just type 'make'
 .DEFAULT_GOAL := help
@@ -37,6 +37,13 @@ help:
 	@echo "  make test-backend     Run backend tests"
 	@echo "  make test-watch       Run tests in watch mode"
 	@echo "  make test-coverage    Run tests with coverage"
+	@echo ""
+	@echo "🎨 Code Quality:"
+	@echo "  make lint             Run ESLint on all code"
+	@echo "  make lint-fix         Run ESLint and auto-fix issues"
+	@echo "  make format           Format code with Prettier"
+	@echo "  make format-check     Check code formatting"
+	@echo "  make pre-commit       Run all checks before commit"
 	@echo ""
 	@echo "🗄️  Database:"
 	@echo "  make db-shell         Open PostgreSQL shell"
@@ -174,6 +181,49 @@ shell-backend:
 shell-frontend:
 	@echo "🐚 Opening frontend shell..."
 	docker compose exec frontend sh
+
+# 🎨 CODE QUALITY COMMANDS
+
+lint:
+	@echo "🔍 Running ESLint on all code..."
+	@echo "Backend:"
+	@docker compose exec backend npm run lint
+	@echo ""
+	@echo "Frontend:"
+	@docker compose exec frontend npm run lint
+	@echo "✅ Linting complete!"
+
+lint-fix:
+	@echo "🔧 Running ESLint with auto-fix..."
+	@echo "Backend:"
+	@docker compose exec backend npm run lint:fix
+	@echo ""
+	@echo "Frontend:"
+	@docker compose exec frontend npm run lint:fix
+	@echo "✅ Auto-fix complete!"
+
+format:
+	@echo "🎨 Formatting code with Prettier..."
+	@echo "Backend:"
+	@docker compose exec backend npm run format
+	@echo ""
+	@echo "Frontend:"
+	@docker compose exec frontend npm run format
+	@echo "✅ Formatting complete!"
+
+format-check:
+	@echo "🔍 Checking code formatting..."
+	@echo "Backend:"
+	@docker compose exec backend npm run format:check
+	@echo ""
+	@echo "Frontend:"
+	@docker compose exec frontend npm run format:check
+	@echo "✅ Format check complete!"
+
+pre-commit: format-check lint
+	@echo ""
+	@echo "✅ All pre-commit checks passed!"
+	@echo "👍 Ready to commit!"
 
 lint-backend:
 	@echo "🔍 Linting backend code..."
