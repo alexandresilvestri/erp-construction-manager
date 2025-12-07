@@ -1,0 +1,14 @@
+{
+  "makefile.configureOnOpen": false,
+
+  // Code Runner Configuration for TypeScript
+  "code-runner.executorMap": {
+    "typescript": "cd $dir && npx tsx $fileName"
+  },
+  "code-runner.runInTerminal": true,
+  "code-runner.clearPreviousOutput": true,
+  "code-runner.saveFileBeforeRun": true,
+  "code-runner.preserveFocus": false,
+  "code-runner.fileDirectoryAsCwd": true,
+  "code-runner.showExecutionMessage": true
+}
