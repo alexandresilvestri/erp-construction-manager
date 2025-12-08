@@ -50,11 +50,17 @@ else
     echo -e "${BLUE}ℹ️  JWT_SECRET already exists on .env${NC}"
 fi
 
-# 4. Estructure folders
+# 4. Setup Git hooks
+echo -e "${BLUE}⚙️  Setting up Git hooks...${NC}"
+git config core.hooksPath backend/.husky
+chmod +x backend/.husky/pre-commit 2>/dev/null || true
+echo -e "${GREEN}✅ Git hooks configured (backend/.husky)${NC}"
+
+# 5. Estructure folders
 mkdir -p backend/src/database/{migrations,seeds}
 mkdir -p frontend/src
 
-# 5. Verify available ports
+# 6. Verify available ports
 check_port() {
     local port=$1
     local service=$2
@@ -73,7 +79,7 @@ check_port 3000 "Backend"
 check_port 5173 "Frontend"
 check_port 5432 "PostgreSQL"
 
-# 6. Start containers
+# 7. Start containers
 if docker compose up -d --build; then
     echo -e "${GREEN}✅ Started containers!${NC}"
 else
