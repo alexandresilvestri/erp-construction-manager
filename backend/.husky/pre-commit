@@ -1,1 +1,2 @@
-npm test
+cd backend && npx lint-staged
+cd backend && npm test
