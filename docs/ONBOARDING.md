@@ -1,10 +1,5 @@
-# 🚀 Onboarding - Environment Setup
 
-> **For New Developers:** This guide will help you set up the environment in minutes!
-
-## ⚡ Quick Setup (Recommended)
-
-### Option 1: Automated Script (Linux/Mac)
+## Automated Script (Linux)
 
 ```bash
 # 1. Clone the repository
@@ -21,13 +16,13 @@ cd <project-name>
 
 You need to have installed:
 
-- ✅ [Docker Desktop](https://www.docker.com/products/docker-desktop/) (version 20.10+)
-- ✅ [Docker Compose](https://docs.docker.com/compose/install/) (version 2.0+)
-- ✅ [Git](https://git-scm.com/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (version 20.10+)
+- [Docker Compose](https://docs.docker.com/compose/install/) (version 2.0+)
+- [Git](https://git-scm.com/)
 
 **Optional (but recommended):**
-- 🔧 [Make](https://www.gnu.org/software/make/) - to use simplified commands
-- 🎨 [VS Code](https://code.visualstudio.com/) - recommended editor
+- [Make](https://www.gnu.org/software/make/) - to use simplified commands
+- [VS Code](https://code.visualstudio.com/) - recommended editor
 
 ## 🎯 Important URLs
 
@@ -95,23 +90,6 @@ project/
 
 ## ⚙️ Custom Settings
 
-### Port Conflicts?
-
-If any port is already in use, edit the `.env` file:
-
-```env
-# Change to available ports
-BACKEND_PORT=3001
-FRONTEND_PORT=5174
-DB_PORT=5433
-```
-
-Then restart:
-```bash
-docker-compose down
-docker-compose up -d
-```
-
 ### Database Credentials
 
 **In development (default - OK to use):**
@@ -124,59 +102,4 @@ DB_PASSWORD=postgres
 ```env
 DB_USER=app_user
 DB_PASSWORD=S3nh@Mu1t0F0rt3!
-```
-
-## 🐛 Troubleshooting
-
-### Problem: "Port already in use"
-
-```bash
-# Check what's using the port
-lsof -i :3000  # Linux/Mac
-netstat -ano | findstr :3000  # Windows
-
-# Change the port in .env or kill the process
-```
-
-### Problem: "Cannot connect to database"
-
-```bash
-# Check if PostgreSQL is running
-docker-compose ps
-
-# View database logs
-docker-compose logs postgres
-
-# Restart database
-docker-compose restart postgres
-```
-
-### Problem: Containers don't start
-
-```bash
-# Clean everything and restart
-docker-compose down -v
-docker-compose up -d --build
-```
-
-### Problem: Modules not found
-
-```bash
-# Reinstall dependencies
-make install-backend
-make install-frontend
-
-# or
-docker-compose exec backend npm install
-docker-compose exec frontend npm install
-```
-
-### How do I add a new dependency?
-
-```bash
-# Backend
-docker-compose exec backend npm install package-name
-
-# Frontend
-docker-compose exec frontend npm install package-name
 ```
