@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 import app from './app'
-import { db } from './database/db'
 
 dotenv.config()
 
@@ -11,4 +10,3 @@ app.listen(PORT, () => {
   console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`)
   console.log(`🗄️  Database: ${process.env.DB_NAME}`)
 })
-

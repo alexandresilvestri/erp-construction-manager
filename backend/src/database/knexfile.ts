@@ -18,16 +18,16 @@ const config: { [key: string]: Knex.Config } = {
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
       directory: './migrations',
-      extension: 'ts'
+      extension: 'ts',
     },
     seeds: {
-      directory: './seeds'
-    }
-  }
+      directory: './seeds',
+    },
+  },
 }
 
 export default config
