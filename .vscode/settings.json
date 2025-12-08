@@ -10,5 +10,17 @@
   "code-runner.saveFileBeforeRun": true,
   "code-runner.preserveFocus": false,
   "code-runner.fileDirectoryAsCwd": true,
-  "code-runner.showExecutionMessage": true
+  "code-runner.showExecutionMessage": true,
+  "sqltools.connections": [
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "construction-manager",
+      "database": "construction-manager",
+      "username": "postgres"
+    }
+  ]
 }

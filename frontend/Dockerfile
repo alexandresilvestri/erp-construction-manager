@@ -19,7 +19,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci --only=production --ignore-scripts
+RUN npm ci --ignore-scripts
 
 COPY . .
 
