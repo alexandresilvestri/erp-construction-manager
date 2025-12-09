@@ -14,7 +14,13 @@
     "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "migrate:make": "knex migrate:make --knexfile src/database/knexfile.ts -x ts",
+    "migrate:latest": "knex migrate:latest --knexfile src/database/knexfile.ts",
+    "migrate:rollback": "knex migrate:rollback --knexfile src/database/knexfile.ts",
+    "migrate:status": "knex migrate:status --knexfile src/database/knexfile.ts",
+    "seed:make": "knex seed:make --knexfile src/database/knexfile.ts -x ts",
+    "seed:run": "knex seed:run --knexfile src/database/knexfile.ts"
   },
   "lint-staged": {
     "*.ts": [

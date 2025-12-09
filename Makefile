@@ -7,7 +7,7 @@
 # =============================================================================
 
 # .PHONY tells make these aren't actual files, just command names
-.PHONY: help dev up down restart logs ps clean install test lint format
+.PHONY: help dev up down restart logs ps clean install test lint format migrate-make migrate-latest migrate-rollback migrate-status seed-make seed-run
 
 # Default target - runs when you just type 'make'
 .DEFAULT_GOAL := help
@@ -170,9 +170,7 @@ clean-all: clean
 	docker compose down -v --rmi all
 	@echo "✅ Full cleanup complete!"
 
-# =============================================================================
 # 🛠️  UTILITY COMMANDS
-# =============================================================================
 
 shell-backend:
 	@echo "🐚 Opening backend shell..."
@@ -237,3 +235,47 @@ health:
 	@curl -s http://localhost:5173 > /dev/null && echo "✅ Running" || echo "❌ Not responding"
 	@echo -n "Database: "
 	@docker compose exec postgres pg_isready -U postgres > /dev/null 2>&1 && echo "✅ Running" || echo "❌ Not responding"
+
+# 🔄 MIGRATION COMMANDS
+
+migrate-make:
+	@if [ -z "$(name)" ]; then \
+		echo "❌ Error: Migration name is required"; \
+		echo "Usage: make migrate-make name=create_users_table"; \
+		exit 1; \
+	fi
+	@echo "📝 Creating migration: $(name)..."
+	@docker compose exec backend npm run migrate:make $(name)
+	@docker compose exec backend chown -R node:node /app/src/database/migrations
+	@echo "✅ Migration created!"
+
+migrate-latest:
+	@echo "⬆️  Running migrations..."
+	@docker compose exec backend npm run migrate:latest
+	@echo "✅ Migrations complete!"
+
+migrate-rollback:
+	@echo "⬇️  Rolling back last migration..."
+	@docker compose exec backend npm run migrate:rollback
+	@echo "✅ Rollback complete!"
+
+migrate-status:
+	@echo "📊 Migration status:"
+	@docker compose exec backend npm run migrate:status
+
+seed-make:
+	@if [ -z "$(name)" ]; then \
+		echo "❌ Error: Seed name is required"; \
+		echo "Usage: make seed-make name=initial_users"; \
+		exit 1; \
+	fi
+	@echo "📝 Creating seed: $(name)..."
+	@docker compose exec backend npm run seed:make $(name)
+	@echo "🔧 Fixing file permissions..."
+	@docker compose exec backend chown -R node:node /app/src/database/seeds
+	@echo "✅ Seed created!"
+
+seed-run:
+	@echo "🌱 Running seeds..."
+	@docker compose exec backend npm run seed:run
+	@echo "✅ Seeds complete!"
