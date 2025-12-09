@@ -1,2 +1,4 @@
-cd backend && npx lint-staged
-cd backend && npm test
+#!/bin/sh
+cd backend
+npx lint-staged
+npm test
