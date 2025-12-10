@@ -1,8 +1,7 @@
-//import type { User } from '../model/users'
-// import { db } from '../database/db'
+import type { User } from '../model/users'
+import { db } from '../database/db'
 
-/* 
-class userRepository {
+class UserRepository {
   async saveUser(user: User): Promise<void> {
     const existingUser = await this.findById(user.id)
 
@@ -25,15 +24,46 @@ class userRepository {
       }
 
       throw err
-
     }
-    
+
     return
   }
 
   async findByEmail(email: string): Promise<User | null> {
     const user = await db('users').where({ email }).first()
-    
+
+    if (!user) {
+      return null
+    }
+
+    return this.tableRowToUser(user)
+  }
+
+  async findById(id: string): Promise<User | null> {
+    const user = await db('users').where({ id }).first()
+
+    if (!user) {
+      return null
+    }
+
+    return this.tableRowToUser(user)
+  }
+
+  private userToTableRow(register: User): User {
+    return {
+      id: register.id,
+      email: register.email,
+      passwordHash: register.passwordHash,
+    }
+  }
+
+  private tableRowToUser(row: User): User {
+    return {
+      id: row.id,
+      email: row.email,
+      passwordHash: row.passwordHash,
+    }
   }
 }
-*/
+
+export const userRepository = new UserRepository()
