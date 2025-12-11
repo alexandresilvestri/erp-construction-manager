@@ -1,6 +1,7 @@
-import type { User, UserData } from '../model/users'
-import { db } from '../database/db'
+//import type { User } from '../model/users'
+// import { db } from '../database/db'
 
+/* 
 class userRepository {
   async saveUser(user: User): Promise<void> {
     const existingUser = await this.findById(user.id)
@@ -35,3 +36,4 @@ class userRepository {
     
   }
 }
+*/
